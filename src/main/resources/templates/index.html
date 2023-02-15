@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">    <head>
+        <title>Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" th:href="@{css/styles.css}">
+    </head>
+    <body style="background-color: #2b547e;">
+        <!-- Navbar content -->
+        <header class="p-3 bg-dark text-white">
+            <div class="container">
+              <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                  <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+        
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 text-white"><span th:text="${user.roles[0].name}" /></a></li>
+                    <li><a href="#" class="nav-link px-2 text-secondary">Logged in as - <span th:text="${user.login}" /></a></li>
+                </ul>
+        
+                <div class="text-end">
+                    <a th:href="@{/logout}">
+                        <button type="button" class="btn btn-warning">Log out</button>
+                    </a>
+                </div>
+              </div>
+            </div>
+        </header>
+        <!-- Navbar end -->
+
+
+        <br>
+        <div class="container-sm rounded shadow p-3" style="background-color: whitesmoke;">
+          <form class="form-inline topnav" th:action="@{search}" method="GET">
+            <div class="d-flex flex-row-reverse">
+              <a th:href="@{/new}" class="mx-2">
+                <button type="button" class="btn btn-primary"><b>+</b> Person</button>
+              </a>
+              <input type="submit" value="Search" class="btn btn-primary mx-2">
+              <div class="col-md-1 ml-2">
+                <div class="form-group date" data-date-format="dd-mm-yyyy">
+                  <select name="civilite_search" class="form-control">
+                      <option value="3" selected>Title</option>
+                      <option value="0">M.</option>
+                      <option value="1">Mme.</option>
+                      <option value="2">Mlle.</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2 mx-2">
+                <input class="form-control me-2" type="search" placeholder="First name" aria-label="Search" name="fname_search" id="searchBar">
+              </div>
+              <div class="col-md-2">
+                <input type="search" class="form-control me-2" placeholder="Last name" aria-label="Search" name="lname_search">
+              </div>
+              
+            </div>
+          </form>
+            <hr>
+
+            <!-- sample table -->
+
+            <table class="table table-hover" id="patients-table">
+                <thead>
+                  <tr>
+                    <th scope="col"># </th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Birth date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="person: ${people}">
+                    <th scope="row" th:text="${person.id}" />
+                    <td th:text="${person.nom}" />
+                    <td th:text="${person.prenom}" />
+                    <td th:text="${CIVILITE[person.civilite]}" />
+                    <td th:text="${person.adresse}" />
+                    <td th:text="${person.naissance}" />
+                    <div th:if="${#strings.equals(user.roles[0].name, 'ROLE_ADMIN')}">
+                      <td >
+                        <a th:href="@{/person/{id}(id=${person.id})}" class="btn btn-sm btn-warning" type="submit">Edit</button>
+                      </td>
+                      <td>
+                        <form th:action="@{/delete/{id}(id=${person.id})}" th:method="DELETE">
+                          <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                        </form>
+                      </td>
+                    </div>
+                  </tr>
+                </tbody>
+              </table>
+      
+
+          
+        <script src="js/script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>    
+    </body>
+</html>

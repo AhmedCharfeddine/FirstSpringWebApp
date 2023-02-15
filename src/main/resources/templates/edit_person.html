@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Edit Person
+        </title>
+        <link rel="stylesheet" href="admin-interface/form_styles.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous">
+    </head>
+    <body style="background-color: #2b547e;">
+        <div class="container mt-5 mb-5 d-flex justify-content-center"> 
+            <div class="card px-1 py-4">
+                <form th:action="@{/person/{id}(id=${person.id})}" th:object="${person}" th:method="POST">
+                    <div class="card-body">
+                        <div class="form-group row my-3">
+                            <div class="input-group"> 
+                                <input th:value="${person.nom}" name="fname" class="form-control" th:field="*{nom}" type="text" placeholder="Nom"> 
+                                <p th:if="${#fields.hasErrors('nom')}" th:errorclass="error" th:errors="*{nom}" />	
+
+                            </div>
+                        </div>
+                        <div class="form-group row my-3">
+                            <div class="input-group">
+                                <input autofocus th:value="${person.prenom}" th:field="*{prenom}" name="lname" type="text" placeholder="Prénom" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row my-3">
+                            <div class="input-group"> 
+                                <input name="address" th:value="${person.adresse}" class="form-control" th:field="*{adresse}" type="text" placeholder="Addresse"> 
+                            </div>
+                        </div>
+                        <!--    TODO: Civilite field     -->
+                        <div class="form-group row my-3">
+                            <div class="input-group ">
+                                <select name="civilite" class="form-control" th:field="*{civilite}">
+                                    <option value="0" th:selected="${person.civilite==0}">M.</option>
+                                    <option value="1" th:selected="${person.civilite==1}">Mme.</option>
+                                    <option value="2" th:selected="${person.civilite==2}">Mlle.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--    TODO: birthdate field    -->
+                        <div class="row form-group my-3">
+                            <div class="col"><label for="birthday">Birth date:</label></div>
+                            <div class="col"><input type="date" id="birthday" th:value="${person.naissance}" th:field="*{naissance}" name="birthday"></div>
+                        </div>
+
+                        <div>
+                            <ul>
+                                <li style="color:red" th:each="err : ${errors}" th:text="${err.getDefaultMessage()}" />
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-block confirm-button" type="submit">Edit Person</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
