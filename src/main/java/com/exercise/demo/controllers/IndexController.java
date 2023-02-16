@@ -35,8 +35,6 @@ public class IndexController {
     @GetMapping("/search")
     public ModelAndView search(@RequestParam("fname_search") String fname, @RequestParam("lname_search") String lname, @RequestParam("civilite_search") Integer civilite) {
         ModelAndView modelAndView = new ModelAndView();
-        UserEntity curUser = userRepository.findFirstByLogin(SecurityUtil.getSessionUser());
-        modelAndView.addObject("user", curUser);
         modelAndView.addObject("people", personRepository.searchQuery(fname, lname, civilite));
         modelAndView.addObject("CIVILITE", CIVILITE);
         modelAndView.setViewName("index");
