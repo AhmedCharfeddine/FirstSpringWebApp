@@ -35,7 +35,6 @@ public class RegistrationController {
         ModelAndView modelAndView = new ModelAndView();
         UserEntity existingUser = userService.findByLogin(user.getLogin());
         if(existingUser != null && existingUser.getLogin() != null && !existingUser.getLogin().isEmpty()) {
-            System.out.println("already existing");
             modelAndView.setViewName("redirect:/register?failure");
         }
         else {
