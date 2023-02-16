@@ -15,19 +15,19 @@
                     <div class="card-body">
                         <div class="form-group row my-3">
                             <div class="input-group"> 
-                                <input th:value="${person.nom}" name="fname" class="form-control" th:field="*{nom}" type="text" placeholder="Nom"> 
+                                <input th:value="${person.nom}" name="fname" class="form-control" th:field="*{nom}" type="text" placeholder="Last name"> 
                                 <p th:if="${#fields.hasErrors('nom')}" th:errorclass="error" th:errors="*{nom}" />	
 
                             </div>
                         </div>
                         <div class="form-group row my-3">
                             <div class="input-group">
-                                <input autofocus th:value="${person.prenom}" th:field="*{prenom}" name="lname" type="text" placeholder="Prénom" class="form-control">
+                                <input autofocus th:value="${person.prenom}" th:field="*{prenom}" name="lname" type="text" placeholder="First name" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row my-3">
                             <div class="input-group"> 
-                                <input name="address" th:value="${person.adresse}" class="form-control" th:field="*{adresse}" type="text" placeholder="Addresse"> 
+                                <input name="address" th:value="${person.adresse}" class="form-control" th:field="*{adresse}" type="text" placeholder="Adress"> 
                             </div>
                         </div>
                         <!--    TODO: Civilite field     -->
@@ -46,11 +46,16 @@
                             <div class="col"><input type="date" id="birthday" th:value="${person.naissance}" th:field="*{naissance}" name="birthday"></div>
                         </div>
 
-                        <div>
-                            <ul>
-                                <li th:each="err : ${errors}" th:text="${err}" />
-                            </ul>
+                        <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> 
+                            <small class="agree-text">
+                                <div>
+                                    <ul>
+                                        <li style="color:red" th:each="err : ${errors}" th:text="${err.getDefaultMessage()}" />
+                                    </ul>
+                                </div>
+                            </small>
                         </div>
+
                         <button class="btn btn-primary btn-block confirm-button" type="submit">Edit Person</button>
                     </div>
                 </form>
