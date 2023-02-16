@@ -15,17 +15,17 @@
                     <div class="card-body">
                         <div class="form-group row my-3">
                             <div class="input-group">
-                                <input autofocus name="lname" type="text" placeholder="Nom" th:field="*{nom}" class="form-control">
+                                <input autofocus name="lname" type="text" placeholder="Last name" th:field="*{nom}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row my-3">
                             <div class="input-group"> 
-                                <input name="fname" class="form-control" th:field="*{prenom}" type="text" placeholder="Prénom"> 
+                                <input name="fname" class="form-control" th:field="*{prenom}" type="text" placeholder="First name"> 
                             </div>
                         </div>
                         <div class="form-group row my-3">
                             <div class="input-group"> 
-                                <input name="address" class="form-control" type="text" th:field="*{adresse}" placeholder="Adresse"> 
+                                <input name="address" class="form-control" type="text" th:field="*{adresse}" placeholder="Address"> 
                             </div>
                         </div>
                         <!--    TODO: Civilite field     -->
@@ -48,7 +48,7 @@
                             <small class="agree-text">
                                 <div>
                                     <ul>
-                                        <li th:each="err : ${errors}" th:text="${err.getDefaultMessage()}" />
+                                        <li style="color:red" th:each="err : ${errors}" th:text="${err.getDefaultMessage()}" />
                                     </ul>
                                 </div>
                             </small>

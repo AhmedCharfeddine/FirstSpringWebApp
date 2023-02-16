@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -30,7 +30,7 @@ public class PersonEntity {
     @NotBlank(message = "Address is missing")
     private String adresse;
 
-    @NotEmpty(message = "Birth date is missing")
+    @NotNull(message = "Birth date is missing")
     private Date naissance;
 
     public PersonEntity(String nom, String prenom, Integer civilite, String adresse, Date naissance) {

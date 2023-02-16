@@ -32,7 +32,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/login**", "/register**", "/css/**", "/js/**") // any url other than these requires authentication
+                .requestMatchers("/login**", "/register**", "/register/save", "/css/**", "/js/**") // any url other than these requires authentication
+                                                                                                                // had to add "/register/save" since it wasn't getting picked up automatically
                 .permitAll()
                 .requestMatchers("/", "/new/**", "/search**") 
                 .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
